@@ -1,0 +1,85 @@
+@(message: String, createproductsform: Form[forms.CreateProductForm])
+@import helper._
+@import helper.twitterBootstrap._
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>CreateProduct</title>
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/cpstyle2.css")" />
+    <script src='@routes.Assets.at("javascripts/jquery-1.11.1.js")'></script>
+    <script src='@routes.Assets.at("javascripts/jquery.validate.js")'></script>
+
+
+</head>
+<body>
+<div id="header" style="height:108px">
+    <div id="logo">
+        <img src="@routes.Assets.at("images/logo.png")" />
+    </div>
+    <div id="moto">
+        <p>Where Buyers and Sellers Meet</p>
+    </div>
+</div>
+
+<div id="wholeform">
+
+        @form(routes.CreateProductController.getCreateProductsFormPage()){
+        <table width="363">
+            <tr>
+                <td width="139" height="69"><span id="ptitle" class="alltext">*Title</span></td>
+
+                <td width="194">@inputText(createproductsform("title"), 'placeholder -> "Title", '_showConstraints -> false, 'tabIndex -> 1)</td>
+            </tr>
+            <tr>
+                <td height="58"><span id="pdesc" class="alltext">*Description</span></td>
+
+                <td>@inputText(createproductsform("description"), 'placeholder -> "Description", '_showConstraints -> false, 'tabIndex -> 2)</td>
+            </tr>
+            <tr>
+                <td height="75"><span id="filechooser" class="alltext">Upload an image of the product</span></td>
+
+                <td><input name="fileopen" id="tf6" type="file" size="20" /></td>
+            </tr>
+            <tr>
+                <td height="51"><span id="pprice" class="alltext">Price</span></td>
+
+                <td>@inputText(createproductsform("price"), 'placeholder -> "Price", '_showConstraints -> false, 'tabIndex -> 3)</td>
+            </tr>
+            <tr>
+                <td height="43"><span id="pcheck1" class="alltext">Negotiable</span><input name="rb" type="radio" value="" checked="checked" /></td>
+
+                <td><span id="pcheck2" class="alltext">NonNegotiable</span><input name="rb" type="radio" value=""/></td>
+            </tr>
+            <tr><td><input name="" type="submit" id="s1"/></td></tr>
+           </table>
+        }
+
+</div>
+<div id="footer" style="height:30px;">
+    <div><p>&copySymbiz' 2015</p></div>
+</div>
+</body>
+<script type="text/javascript">
+
+
+    $('document').ready(function(){
+
+        $("form").validate({
+            rules: {
+                'title': {
+                    required: true,
+                    minlength: 5
+                },
+                'description': {
+                    required: true,
+                    minlength: 10
+                }
+            }
+        });
+    });
+
+</script>
+</html>

@@ -1,0 +1,77 @@
+@(message: String , loginform: Form[forms.LoginForm])
+@import helper._
+@import helper.twitterBootstrap._
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/LoginStyle.css")" />
+    <script src='@routes.Assets.at("javascripts/jquery-1.11.1.js")'></script>
+    <script src='@routes.Assets.at("javascripts/jquery.validate.js")'></script>
+
+
+</head>
+<body>
+@if(flash.contains("error")){
+<p class="error">
+    @flash.get("error")
+</p>
+}
+
+<div id="header" style="height:108px">
+    <div id="logo">
+        <img src="@routes.Assets.at("images/logo.png")" />
+    </div>
+    <div id="moto">
+        <p>Where Buyers and Sellers Meet</p>
+    </div>
+</div>
+<div id="contentbody" style="height:450px">
+    <div id="loginform">
+
+        @form(routes.Authentication.authenticate()){
+        <div id="formfeilds">
+        <fieldset>
+
+                <img src="@routes.Assets.at("images/userform.png")" style="margin-left:60px; margin-bottom:23px; top:20px;" />
+                <div id="formfeild1">@inputText(loginform("email"), '_showLabel -> false, 'placeholder -> "Email", '_showConstraints -> false, 'tabIndex -> 1)</div>
+
+                <div id="formdfeild2">@inputText(loginform("password"), 'placeholder -> "Password", '_showConstraints -> false, 'tabIndex -> 2)</div>
+                <div id="formfeild3"><input name="loginbutton" type="submit" value="Login" id="loginbutton" style="width:243px;height:30px;"/></div>
+
+            </fieldset>
+
+        <p>Not a member?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="register">SignUp</a></p>
+        </div>
+        }
+
+
+    </div>
+</div>
+<div id="footer" style="height:30px;">
+    <div><p>&copySymbiz' 2015</p></div>
+</div>
+</body>
+<script type="text/javascript">
+
+
+    $('document').ready(function(){
+
+        $("form").validate({
+            rules: {
+                'email': {
+                    required: true,
+                    email: true
+                },
+                'password': {
+                    required: true,
+                    minlength: 3
+                }
+            }
+        });
+    });
+
+</script>
+</html>

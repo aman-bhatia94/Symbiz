@@ -1,0 +1,81 @@
+@(message: String,userRole:String)
+@import helper._
+@import helper.twitterBootstrap._
+@import models.Product
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/plist2.css")' />
+    <title>Product List</title>
+    <script src='@routes.Assets.at("javascripts/jquery-1.9.0.min.js")'></script>
+</head>
+
+<body>
+<div id="header" style="height:108px">
+    <div id="logo">
+        <img src="@routes.Assets.at("images/logo.png")" />
+    </div>
+    <div id="moto">
+        <p>Where Buyers and Sellers Meet</p>
+    </div>
+</div>
+
+
+<div id="wholelist" style="height:450px">
+
+
+</div>
+<div id="footer" style="height:30px;">
+    <div><p>&copySymbiz' 2015</p></div>
+</div>
+
+</body>
+<script type = "application/javascript">
+
+    $("document").ready(function(){
+        $.ajax({
+            dataType: "json",
+            url: "/getproductlist",
+            success: function(productList){
+                console.log(productList);
+                for(var i=0;i<productList.length;i++){
+                    appendToHTML(productList[i]);
+                }
+                buyListener();
+            }
+        });
+
+    });
+
+    function buyListener(){
+        $('button.buylinkbutton').click(function(data){
+            var productId = $(this).attr('id');
+            alert("ordering the product");
+            $.ajax({
+                dataType: "json",
+                data: {"productId" : productId},
+                type: "POST",
+                url: "/order",
+                success: function(success){
+                    alert("successfully ordered");
+                }
+            });
+
+        });
+    }
+    function appendToHTML(product){
+        var divRaw = '<div class="productbord">'
+                +'<div class="products" style="width:600px;">'
+                +'<div class="productimage"><img src="@routes.Assets.at("images/canoncam.JPG")" /></div>'
+        +'<div class="producttitle">'+product.name+'</div>'
+        +'<div class="productdescription">'+product.description+'</div>'
+        +'<div class="more"><a href="">More</a></div>'
+        +'<div class="buylink" ><button class="buylinkbutton" type="submit" onclick="buyProduct();" id="'+product.id+'">BUY</button></div>'
+        +'<div class="productprice">'+product.price+'</div>'
+        +'</div>'
+        +'</div>';
+        $('#wholelist').append(divRaw);
+    }
+</script>
+</html>

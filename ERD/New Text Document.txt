@@ -1,0 +1,24 @@
+all tables should have id and descripotion created by updated by.
+
+
+
+{
+
+config table stores all the hard coded values like key values..
+
+these items may change but in general they dont.
+
+}
+
+{
+
+donot delete the data ever
+}
+
+{
+
+we always keep a start date and andend date in configyuration tables.
+}
+
+
+select * from user where fName like 's%' and lName like 'p%';

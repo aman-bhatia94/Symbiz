@@ -1,0 +1,120 @@
+@(message: String, registrationform: Form[forms.RegistrationForm])
+@import helper._
+@import helper.twitterBootstrap._
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Registration</title>
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/formstyle2.css")" />
+
+    <script src='@routes.Assets.at("javascripts/jquery-1.11.1.js")'></script>
+    <script src='@routes.Assets.at("javascripts/jquery.validate.js")'></script>
+    <!--<script src='@routes.Assets.at("javascripts/jquery-1.9.0.min.js")'></script>-->
+
+</head>
+<body>
+
+<div id="header" style="height:108px">
+    <div id="logo">
+        <img src="@routes.Assets.at("images/logo.png")" />
+    </div>
+    <div id="moto">
+        <p>Where Buyers and Sellers Meet</p>
+    </div>
+</div>
+
+<div id="mainbody" style="height:450px">
+    @form(routes.RegisterController.getRegistrationFormPage()){
+
+    <!--<h1 id="header">USER REGISTRATION<sub style="font-size:13px">(Fields marked * are compulsory)</sub></h1>-->
+    <table height="458" id="myForm">
+
+            <tr>
+                <td width="147">
+                    <span id="fname" class="allText">*Firstname</span>
+                </td>
+                <td width="144">
+                    @inputText(registrationform("firstName"), 'placeholder -> "FirstName", '_showConstraints -> false, 'tabIndex -> 1)
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="allText">*Lastname</span>
+                </td>
+                <td>
+                    @inputText(registrationform("lastName"), 'placeholder -> "LastName", '_showConstraints -> false, 'tabIndex -> 2)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="allText">*Email</span></td>
+                <td>@inputText(registrationform("email"), 'placeholder -> "Email", '_showConstraints -> false, 'tabIndex -> 3)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="allText">Password</span></td>
+                <td>@inputText(registrationform("password"), 'placeholder -> "Password", '_showConstraints -> false, 'tabIndex -> 4)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span class="allText">DateOfBirth</span></td>
+                <td>@inputText(registrationform("dateOfBirth"), 'placeholder -> "DateOfBirth", '_showConstraints -> false, 'tabIndex -> 6)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @inputRadioGroup(
+                    registrationform("userType"),
+                    options= Seq("1" -> "Buyer","2"->"Seller"),
+                    '_label -> "userType")
+       </td>
+            </tr>
+            <tr>
+                <td>
+                    <input name="submit" id="s1" type="submit"   value="Submit" />
+                </td>
+            </tr>
+
+    </table>
+    }
+
+</div>
+
+<div id="footer" style="height:30px;">
+    <div><p>&copySymbiz' 2015</p></div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+
+    $('document').ready(function(){
+
+        $("form").validate({
+            rules: {
+                'email': {
+                    required: true,
+                    email: true
+                },
+                'userType': {
+                    required: true
+
+                },
+                'password':{
+                    required: true,
+                    minlength: 3
+                }
+
+            }
+        });
+    });
+
+</script>
+</html>
+
